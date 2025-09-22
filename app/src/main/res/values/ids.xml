@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="btn_settings" type="id" />
+    <item name="btn_more" type="id" />
+    <item name="tv_title" type="id" />
+    <item name="tv_artist" type="id" />
+    <item name="img_album" type="id" />
+    <item name="lyrics_layout" type="id" />
+    <item name="seekbar" type="id" />
+    <item name="tv_current_time" type="id" />
+    <item name="tv_total_time" type="id" />
+    <item name="control_buttons" type="id" />
+    <item name="btn_related" type="id" />
+</resources>

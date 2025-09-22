@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@android:drawable/ic_menu_view"
+        android:title="홈" />
+    <item
+        android:id="@+id/followFragment"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="둘러보기" />
+    <item
+        android:id="@+id/searchrFragment"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="검색" />
+    <item
+        android:id="@+id/mypageFragment"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="프로필" />
+</menu>
