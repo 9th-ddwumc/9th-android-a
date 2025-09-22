@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.umc_9th.HomeFragment"
+        android:label="홈"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/diaryFragment"
+        android:name="com.example.umc_9th.DiaryFragment"
+        android:label="일기쓰기"
+        tools:layout="@layout/fragment_diary" />
+
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.umc_9th.CalendarFragment"
+        android:label="달력"
+        tools:layout="@layout/fragment_calendar" />
+
+    <fragment
+        android:id="@+id/friendFragment"
+        android:name="com.example.umc_9th.FreindFragment"
+        android:label="친구"
+        tools:layout="@layout/fragment_freind" />
+
+    <fragment
+        android:id="@+id/mypageFragment"
+        android:name="com.example.umc_9th.MypageFragment"
+        android:label="마이페이지"
+        tools:layout="@layout/fragment_mypage" />
+
+</navigation>
