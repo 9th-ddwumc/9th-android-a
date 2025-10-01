@@ -1,54 +1,58 @@
 package com.example.flo
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.flo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
+    val lilac = Album("LILAC", "임수호, Dr.JO, 웅킴, N!ko", "라일락", "아이유 (IU)", R.drawable.img_album_exp2,
+        "2021.03.25 | 정규 | 댄스 팝",
+        "나리는 꽃가루에", "눈이 따끔해 아야", "03:39")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initBottomNavigation()
-
-        val song = Song(binding.mainMiniplayerTitleTv.text.toString(), binding.mainMiniplayerSingerTv.text.toString())
-
-        binding.mainPlayerCl.setOnClickListener {
-            val intent = Intent(this, SongActivity::class.java)
-        }
-
-        val title = intent.getStringExtra("title")
-        if (title != null) {
-            Toast.makeText(this, title, Toast.LENGTH_SHORT).show()
-        }
+        binding.mainPlayingTitleTv.setText(lilac.songTitle)
+        binding.mainPlayingSingerTv.setText(lilac.singer)
 
         binding.mainPlayerCl.setOnClickListener {
-            val intent = Intent(this,SongActivity::class.java)
-            intent.putExtra("title", song.title)
-            intent.putExtra("singer",song.singer)
+            val intent = Intent(this, SongActivity::class.java).apply {
+                putExtra("Lilac", lilac)
+            }
             startActivity(intent)
         }
 
+        initBottomNavigation()
     }
 
-    private fun initBottomNavigation(){
-
+    private fun initBottomNavigation() {
+        val homeFragment = HomeFragment().apply {
+            arguments = Bundle().apply {
+                putSerializable("Lilac", lilac)
+            }
+        }
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_frm, HomeFragment())
+            .replace(R.id.main_frm, homeFragment)
             .commitAllowingStateLoss()
 
-        binding.mainBnv.setOnItemSelectedListener{ item ->
+        binding.mainBnv.setOnItemSelectedListener { item ->
             when (item.itemId) {
 
                 R.id.homeFragment -> {
+                    val homeFragment = HomeFragment().apply {
+                        arguments = Bundle().apply {
+                            putSerializable("Lilac", lilac)
+                        }
+                    }
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frm, HomeFragment())
+                        .replace(R.id.main_frm, homeFragment)
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
@@ -59,12 +63,14 @@ class MainActivity : AppCompatActivity() {
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
+
                 R.id.searchFragment -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_frm, SearchFragment())
                         .commitAllowingStateLoss()
                     return@setOnItemSelectedListener true
                 }
+
                 R.id.lockerFragment -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_frm, LockerFragment())

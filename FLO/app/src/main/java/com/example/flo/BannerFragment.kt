@@ -5,18 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.flo.databinding.FragmentSearchBinding
+import com.example.flo.databinding.FragmentBannnerBinding
 
-class SearchFragment: Fragment() {
+class BannerFragment(val imgRes: Int): Fragment() {
 
-    lateinit var binding: FragmentSearchBinding
+    lateinit var binding: FragmentBannnerBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSearchBinding.inflate(inflater, container, false)
+        binding = FragmentBannnerBinding.inflate(inflater, container, false)
+
+        binding.bannerImageIv.setImageResource(imgRes)
 
         return binding.root
     }

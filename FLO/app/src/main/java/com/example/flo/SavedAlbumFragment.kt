@@ -5,18 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.flo.databinding.FragmentSearchBinding
+import com.example.flo.databinding.FragmentLockerSavedalbumBinding
 
-class SearchFragment: Fragment() {
+class SavedAlbumFragment: Fragment() {
 
-    lateinit var binding: FragmentSearchBinding
+    lateinit var binding: FragmentLockerSavedalbumBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSearchBinding.inflate(inflater, container, false)
+        binding = FragmentLockerSavedalbumBinding.inflate(inflater, container, false)
 
         return binding.root
     }
