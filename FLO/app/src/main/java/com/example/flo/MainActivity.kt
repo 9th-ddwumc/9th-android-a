@@ -2,6 +2,7 @@ package com.example.flo
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.flo.databinding.ActivityMainBinding
 
@@ -9,9 +10,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    val lilac = Album("LILAC", "임수호, Dr.JO, 웅킴, N!ko", "라일락", "아이유 (IU)", R.drawable.img_album_exp2,
-        "2021.03.25 | 정규 | 댄스 팝",
-        "나리는 꽃가루에", "눈이 따끔해 아야", "03:39")
+    val lilac = Album("LILAC", "아이유 (IU)", R.drawable.img_album_exp2)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.mainPlayingTitleTv.setText(lilac.songTitle)
+        binding.mainPlayingTitleTv.setText(lilac.title)
         binding.mainPlayingSingerTv.setText(lilac.singer)
 
         binding.mainPlayerCl.setOnClickListener {
@@ -30,6 +29,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         initBottomNavigation()
+    }
+
+    fun updateMiniPlayer(title: String, singer: String) {
+        binding.mainPlayingTitleTv.text = title
+        binding.mainPlayingSingerTv.text = singer
+        binding.mainPlayerCl.visibility = View.VISIBLE
     }
 
     private fun initBottomNavigation() {

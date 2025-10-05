@@ -1,15 +1,11 @@
 package com.example.flo
 
 import java.io.Serializable
+import java.util.ArrayList
 
 data class Album (
-    val title: String,
-    val composer: String,
-    val songTitle: String,
-    val singer: String,
-    val albumCover: Int,
-    val releaseInfo: String,
-    val lyric1: String,
-    val lyric2: String,
-    val length: String
+    val title: String = "",
+    val singer: String = "",
+    val coverImg: Int? = null,
+    var songs: ArrayList<Song>? = null
 ): Serializable

@@ -21,7 +21,7 @@ class DetailFragment: Fragment() {
         val lilac = arguments?.getSerializable("Lilac") as Album
 
         binding.detailAboutAlbumTv.setText("이 앨범의 이름은 ${lilac.title} 입니다.")
-        binding.detailAboutComposerTv.setText("이 앨범의 작곡가는 ${lilac.composer} 입니다.")
+        binding.detailAboutComposerTv.setText("이 앨범의 가수는 ${lilac.singer} 입니다.")
 
         return binding.root
     }

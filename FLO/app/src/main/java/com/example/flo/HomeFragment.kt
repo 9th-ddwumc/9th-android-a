@@ -5,14 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.flo.databinding.FragmentHomeBinding
 
 class HomeFragment: Fragment() {
     lateinit var binding: FragmentHomeBinding
+    private var albumDatas = ArrayList<Album>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
+
+    override fun onCreateView(inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
@@ -20,9 +22,40 @@ class HomeFragment: Fragment() {
 
         val lilac = arguments?.getSerializable("Lilac") as? Album
 
-        binding.homeTodayMusicAlbum1Iv.setImageResource(lilac!!.albumCover)
-        binding.homeTodayMusicTitle1Tv.setText(lilac.title)
-        binding.homeTodayMusicSinger1Tv.setText(lilac.singer)
+
+        albumDatas.apply {
+            add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
+            add(Album("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
+            add(Album("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp))
+            add(Album("Boy with Luv", "방탄소년단 (BTS)", R.drawable.img_album_exp2))
+            add(Album("BBoom BBoom", "모모랜드 (MOMOLAND)", R.drawable.img_album_exp))
+            add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp2))
+        }
+
+        val albumRVAdapter = AlbumRVAdapter(
+            albumList = albumDatas,
+            onItemClick = { clickedAlbum ->
+                val albumFragment = AlbumFragment().apply {
+                    arguments = Bundle().apply { putSerializable("Lilac", clickedAlbum) }
+                }
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.main_frm, albumFragment)
+                    .addToBackStack(null)
+                    .commit()
+            },
+            onPlayClick = { album ->
+                val first = album.songs?.firstOrNull()
+                val title = first?.title ?: album.title
+                val singer = first?.singer ?: album.singer
+                (activity as? MainActivity)?.updateMiniPlayer(title, singer)
+            }
+        )
+        binding.homeTodayMusicAlbumRv.adapter = albumRVAdapter
+        binding.homeTodayMusicAlbumRv.layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
 
         binding.homeTodayMusicAlbum1Layout.setOnClickListener {
             val albumFragment = AlbumFragment().apply {

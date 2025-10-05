@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.flo.databinding.FragmentSongBinding
 
 class SongFragment: Fragment() {
@@ -30,6 +31,18 @@ class SongFragment: Fragment() {
         }
 
 
+        // 리사이클러뷰 더미데이터 설정
+        binding.songRv.layoutManager = LinearLayoutManager(requireContext())
+
+        val dummySongs = listOf(
+            Song(title = "Lilac", singer = "아이유", coverImg = R.drawable.img_album_exp2),
+            Song(title = "Coin", singer = "아이유", coverImg = R.drawable.img_album_exp2),
+            Song(title = "Flu", singer = "아이유", coverImg = R.drawable.img_album_exp2),
+            Song(title = "봄 안녕 봄", singer = "아이유", coverImg = R.drawable.img_album_exp2),
+            Song(title = "Celebrity", singer = "아이유", coverImg = R.drawable.img_album_exp2)
+        )
+
+        binding.songRv.adapter = SongRVAdapter(requireContext(), dummySongs)
 
 
         return binding.root

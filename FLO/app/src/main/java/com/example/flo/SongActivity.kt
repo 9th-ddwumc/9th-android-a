@@ -17,12 +17,9 @@ class SongActivity: AppCompatActivity() {
 
         val lilac = intent.getSerializableExtra("Lilac") as? Album ?: return
 
-        binding.songTitleTv.setText(lilac.songTitle)
+        binding.songTitleTv.setText(lilac.title)
         binding.songSingerTv.setText(lilac.singer)
-        binding.songAlbumIv.setImageResource(lilac.albumCover)
-        binding.songLyric1Tv.setText(lilac.lyric1)
-        binding.songLyric2Tv.setText(lilac.lyric2)
-        binding.songEndTimeTv.setText(lilac.length)
+        lilac.coverImg?.let { binding.songAlbumIv.setImageResource(it) }
 
 
         // song activity 종료

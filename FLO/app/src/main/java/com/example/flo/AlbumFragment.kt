@@ -12,7 +12,7 @@ class AlbumFragment: Fragment() {
 
     lateinit var binding: FragmentAlbumBinding
 
-    private val tabInfo = arrayListOf("수록곡", "상세정보", "영상")
+    private val tabInfo = listOf("수록곡", "상세정보", "영상")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,10 +23,9 @@ class AlbumFragment: Fragment() {
 
         val lilac = arguments?.getSerializable("Lilac") as? Album
 
-        binding.albumImgIv.setImageResource(lilac!!.albumCover)
+        lilac!!.coverImg?.let { binding.albumImgIv.setImageResource(it) }
         binding.albumTitleTv.setText(lilac.title)
         binding.albumSingerTv.setText(lilac.singer)
-        binding.albumInfoTv.setText(lilac.releaseInfo)
 
         binding.albumBackIb.setOnClickListener {
             parentFragmentManager.popBackStack()
