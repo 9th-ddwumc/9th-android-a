@@ -20,9 +20,9 @@ class MusicFileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val dummyLocal = listOf(
-            Song(title = "로컬 트랙 1", singer = "Unknown", coverImg = R.drawable.img_album_exp2),
+            Song(title = "로컬 트랙 1", singer = "Unknown", coverImg = R.drawable.img_album_exp),
             Song(title = "로컬 트랙 2", singer = "Unknown", coverImg = R.drawable.img_album_exp2),
-            Song(title = "로컬 트랙 3", singer = "Unknown", coverImg = R.drawable.img_album_exp2),
+            Song(title = "로컬 트랙 3", singer = "Unknown", coverImg = R.drawable.img_album_exp3),
         )
 
         binding.musicfileRv.layoutManager = LinearLayoutManager(requireContext())

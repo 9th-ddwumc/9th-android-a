@@ -26,10 +26,10 @@ class HomeFragment: Fragment() {
         albumDatas.apply {
             add(Album("Butter", "방탄소년단 (BTS)", R.drawable.img_album_exp))
             add(Album("Lilac", "아이유 (IU)", R.drawable.img_album_exp2))
-            add(Album("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp))
-            add(Album("Boy with Luv", "방탄소년단 (BTS)", R.drawable.img_album_exp2))
-            add(Album("BBoom BBoom", "모모랜드 (MOMOLAND)", R.drawable.img_album_exp))
-            add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp2))
+            add(Album("Next Level", "에스파 (AESPA)", R.drawable.img_album_exp3))
+            add(Album("Boy with Luv", "방탄소년단 (BTS)", R.drawable.img_album_exp4))
+            add(Album("BBoom BBoom", "모모랜드 (MOMOLAND)", R.drawable.img_album_exp5))
+            add(Album("Weekend", "태연 (Tae Yeon)", R.drawable.img_album_exp6))
         }
 
         val albumRVAdapter = AlbumRVAdapter(
@@ -45,9 +45,19 @@ class HomeFragment: Fragment() {
             },
             onPlayClick = { album ->
                 val first = album.songs?.firstOrNull()
-                val title = first?.title ?: album.title
-                val singer = first?.singer ?: album.singer
-                (activity as? MainActivity)?.updateMiniPlayer(title, singer)
+
+                val song = Song(
+                    title = first?.title ?: album.title,
+                    singer = first?.singer ?: album.singer,
+                    second = first?.second ?: 0,
+                    playTime = first?.playTime ?: 180, // 기본 3:00
+                    isPlaying = false,
+                    music = first?.music ?: "",
+                    coverImg = album.coverImg,
+                    isLike = false
+                )
+
+                (activity as? MainActivity)?.updateMiniPlayer(song)
             }
         )
         binding.homeTodayMusicAlbumRv.adapter = albumRVAdapter

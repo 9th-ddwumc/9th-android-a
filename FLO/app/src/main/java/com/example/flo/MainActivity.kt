@@ -9,8 +9,9 @@ import com.example.flo.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
+    private var currentSong: Song? = null
 
-    val lilac = Album("LILAC", "아이유 (IU)", R.drawable.img_album_exp2)
+    val lilac: Song = Song("LILAC", "아이유 (IU)", R.drawable.img_album_exp2)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,12 +19,22 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.mainPlayingTitleTv.setText(lilac.title)
-        binding.mainPlayingSingerTv.setText(lilac.singer)
+        binding.mainPlayingTitleTv.text = lilac.title
+        binding.mainPlayingSingerTv.text = lilac.singer
 
         binding.mainPlayerCl.setOnClickListener {
+            val songForIntent: Song = currentSong ?: Song(
+                title = lilac.title,
+                singer = lilac.singer,
+                playTime = 180,      // 기본 3:00
+                second = 0,
+                isPlaying = false,
+                music = "",
+                coverImg = lilac.coverImg,
+                isLike = false
+            )
             val intent = Intent(this, SongActivity::class.java).apply {
-                putExtra("Lilac", lilac)
+                putExtra("song", songForIntent)         // ✅ 곡 전체 전달
             }
             startActivity(intent)
         }
@@ -31,9 +42,10 @@ class MainActivity : AppCompatActivity() {
         initBottomNavigation()
     }
 
-    fun updateMiniPlayer(title: String, singer: String) {
-        binding.mainPlayingTitleTv.text = title
-        binding.mainPlayingSingerTv.text = singer
+    fun updateMiniPlayer(song: Song) {
+        currentSong = song                          // ✅ 현재 곡 저장
+        binding.mainPlayingTitleTv.text = song.title
+        binding.mainPlayingSingerTv.text = song.singer
         binding.mainPlayerCl.visibility = View.VISIBLE
     }
 

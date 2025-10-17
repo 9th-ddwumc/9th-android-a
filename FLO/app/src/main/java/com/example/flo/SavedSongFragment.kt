@@ -22,7 +22,7 @@ class SavedSongFragment : Fragment() {
         val dummy = mutableListOf(
             Song(title = "밤양갱", singer = "BIBI", coverImg = R.drawable.img_album_exp),
             Song(title = "Hype Boy", singer = "NewJeans", coverImg = R.drawable.img_album_exp2),
-            Song(title = "Love wins all", singer = "IU", coverImg = R.drawable.img_album_exp)
+            Song(title = "Love wins all", singer = "IU", coverImg = R.drawable.img_album_exp3)
         )
 
         binding.savedsongRv.layoutManager = LinearLayoutManager(requireContext())

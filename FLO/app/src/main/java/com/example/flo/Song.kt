@@ -2,6 +2,7 @@ package com.example.flo
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "SongTable")
 data class Song(
@@ -13,6 +14,6 @@ data class Song(
     var music: String = "",
     var coverImg: Int? = null,
     var isLike: Boolean = false
-){
+) : Serializable {
     @PrimaryKey(autoGenerate = true) var id: Int = 0
 }
