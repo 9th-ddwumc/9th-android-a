@@ -15,17 +15,17 @@ private const val ARG_PARAM2 = "param2"
  * Use the [BannerFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+private const val ARG_IMG_ID = "image_id"
 class BannerFragment : Fragment() {
 
     lateinit var binding: FragmentBannerBinding
-    private var param1: String? = null
-    private var param2: String? = null
+    private var imageId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            imageId = it.getInt(ARG_IMG_ID, 0)
         }
     }
 
@@ -38,22 +38,29 @@ class BannerFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // imageId가 유효하다면 ImageView에 설정합니다.
+        if (imageId != 0) {
+            binding.homePannelBackgroundIv.setImageResource(imageId)
+        }
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
+         * @param imageId 표시할 이미지 리소스 ID (Int)
          * @return A new instance of fragment BannerFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(imageId: Int) =
             BannerFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putInt(ARG_IMG_ID, imageId)
                 }
             }
     }

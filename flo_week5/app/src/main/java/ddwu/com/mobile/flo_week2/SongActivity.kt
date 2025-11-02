@@ -48,11 +48,15 @@ class SongActivity : AppCompatActivity() {
             moveSong(+1)
         }
 
-        // quit
+        // quit (SongActivity -> MainActivity)
         binding.songDownIb.setOnClickListener {
             val resultIntent = Intent()
-            resultIntent.putExtra("title", binding.songMusicTitleTv.text.toString())
-            resultIntent.putExtra("singer", binding.songSingerNameTv.text.toString())
+
+            resultIntent.putExtra("songList", songs)
+            resultIntent.putExtra("nowPos", nowPos)
+
+            resultIntent.putExtra("album", songs[nowPos])
+
             setResult(RESULT_OK, resultIntent)
             finish()
         }
@@ -111,19 +115,25 @@ class SongActivity : AppCompatActivity() {
 
     private fun initPlayList(){
         albumDao = AlbumDao()
-        songs = albumDao.getAllAlbums()
+        if (songs.isEmpty()) {
+            songs = albumDao.getAllAlbums() // 리스트가 비어있을 때만 불러옴
+        }
     }
 
     private fun initSong(){
         // miniPlayer -> SongActivity
-        if(intent.hasExtra("album")) {
-            song = intent.getSerializableExtra("album") as AlbumDto
-            if (song != null) {
-                nowPos = songs.indexOfFirst { it.title == song.title && it.singer == song.singer }
-            }
-            if (nowPos == -1) nowPos = 0
+        val intent = intent
+
+        if(intent.hasExtra("songList") && intent.hasExtra("nowPos")){
+            songs = intent.getSerializableExtra("songList") as ArrayList<AlbumDto>
+            nowPos = intent.getIntExtra("nowPos", 0)
         }
-        setPlayer(songs[nowPos])
+        else{
+            initPlayList()
+        }
+        song = songs[nowPos]
+
+        setPlayer(song)
         startTimer()
     }
 
@@ -193,6 +203,7 @@ class SongActivity : AppCompatActivity() {
                             // 노래가 끝났을 때 UI 최종
                             binding.songStartTimeTv.text = String.format("%02d:%02d", song.playTime / 60, song.playTime % 60)
                             binding.songProgressSb.progress = song.playTime * 1000
+                            song.isPlaying = false
                             setPlayerStatus(false)
                         }
                         break
@@ -211,6 +222,7 @@ class SongActivity : AppCompatActivity() {
                             if (mills % 1000 == 0) {
                                 second++
                                 binding.songStartTimeTv.text = String.format("%02d:%02d", second / 60, second % 60)
+                                song.second = second
                             }
                         }
                     }

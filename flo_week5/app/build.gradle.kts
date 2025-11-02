@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "ddwu.com.mobile.flo_week2"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -48,6 +48,10 @@ dependencies {
     // Kotlin
     implementation("androidx.fragment:fragment-ktx:$fragment_version")
     implementation("androidx.viewpager2:viewpager2:1.1.0")
+
+    //circleindicator
+    implementation("me.relex:circleindicator:2.1.6")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
